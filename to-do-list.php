@@ -1,10 +1,6 @@
 <?php
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-if (isset($_POST['task'])){
-	$task = $_POST['task'];
-}
-}
+$task = $_POST['task'];
 
 ?>
 
@@ -27,8 +23,7 @@ if (isset($_POST['task'])){
 	<ul id="myUL">
 		
 		<li> <?php echo $task; ?> </li>
-		<li>second to do</li>
-		<li>third to do</li>
+		
 	</ul>
 	
 </body>
