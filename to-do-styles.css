@@ -75,3 +75,24 @@ input {
 .addBtn:hover {
     background-color: #bbb;
 }
+
+/* Style the close button */
+.close {
+    position: absolute;
+	width: 10%;
+    right: 0;
+    top: 0;
+    padding: 10px;
+}
+
+.close:hover {
+    background-color: #f44336;
+    color: white;
+}
+
+/* When clicked on, add a background color and strike out text */
+ul li.checked {
+    background: #888;
+    color: #fff;
+    text-decoration: line-through;
+}
