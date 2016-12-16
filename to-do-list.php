@@ -7,21 +7,25 @@ $connection = mysqli_connect(DBHOST, DBUSER, DBPASS, DBNAME);
 if (mysqli_connect_errno()) {
 	die(mysqli_connect_error());
 }
+if(isset($_POST['taskId'])){
+	//define variable to hold $taskId retrieved from delete form. This is then used in the delete query.
+	$taskIdDel=$_POST['taskId'];
+	//delete task from table
+	$deleteSql="DELETE FROM tasks WHERE id='$taskIdDel'";
+	$deleteResult=mysqli_query($connection, $deleteSql);
+}
 
-//define variable to hold new task entered
-$task = $_POST['newTask'];
+if(isset($_POST['newTask'])) {
+	//define variable to hold new task entered
+	$task = $_POST['newTask'];
+	//add new task to table
+	$insertSql = "INSERT INTO tasks (task) VALUES ('$task')";
+	$insertResult = mysqli_query($connection, $insertSql);
+}
+
 //select all tasks from table
 $taskSql = "SELECT task, id FROM tasks ORDER BY id asc";
 $taskResult = mysqli_query($connection, $taskSql);
-//add new task to table
-$insertSql = "INSERT INTO tasks (task) VALUES ('$task')";
-$insertResult = mysqli_query($connection, $insertSql);
-//define variable to hold $taskId retrieved from delete form. This is then used in the delete query.
-$taskIdDel=$_POST['taskId'];
-//delete task from table
-$deleteSql="DELETE FROM tasks WHERE id='$taskIdDel'";
-$deleteResult=mysqli_query($connection, $deleteSql);
-
 
 ?>
 
@@ -52,10 +56,12 @@ $deleteResult=mysqli_query($connection, $deleteSql);
 					//define variables to hold task and id # from database
 					$taskName = $row['task'];
 					$taskId = $row['id'];
-					echo '<li><span>'.$taskName.'</span>';
+					echo '<li>
+					<span>'.$taskName.'</span>';
 					//create a button that will delete a task from the database. 
 					//Use the $taskId to know which task to delete.
-					echo '<input type="submit" id="'.$taskId.'" class="close" value="X">';
+					echo '<input type="hidden" name="taskId" class="close" value="'.$taskId.'">';
+					echo '<input type="submit" name="submit" class="close" value="X">';
 					echo '</li></form>';
 			}
 		}
